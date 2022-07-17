@@ -22,6 +22,9 @@ nav {
     padding: 19px 120px;
     z-index: 4;
 }
+nav div{
+    z-index: 2;
+}
 
 a {
     text-decoration: none;

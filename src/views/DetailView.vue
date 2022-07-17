@@ -36,11 +36,8 @@
     <div class="ingredient-container">
       <h3>Ingredients</h3>
       <div class="tabs-container">
-        <div
-          class="tabs"
-          v-for="(ingredient, index) in ingredients"
-          :key="ingredient"
-        >
+        <div class="tabs" v-for="(ingredient, index) in ingredients" :key="ingredient"
+          :onmouseover="changeAppearance()">
           <p>{{ ingredient }}</p>
           <div class="mini-tab">
             <p>{{ measures[`strMeasure${index.slice(13)}`] }}</p>
@@ -62,6 +59,11 @@ var _ = require("lodash");
 export default {
   components: {
     TheNavbar,
+  },
+  data() {
+    return {
+      hover: false
+    }
   },
   props: ["id"],
   async created() {
@@ -106,10 +108,11 @@ export default {
 </script>
 
 <style scoped>
-h3{
-font-weight: 700;
-font-size: 32px;
+h3 {
+  font-weight: 700;
+  font-size: 32px;
 }
+
 .upper-section {
   background: #ff9f59;
   background-image: url("@/assets/noise\ 2.png");
@@ -196,11 +199,13 @@ font-size: 32px;
   padding: 6px 8px;
   cursor: pointer;
 }
+
 .tabs p {
   display: inline-block;
   font-size: 16px;
   color: #919191;
 }
+
 .tabs:hover {
   background-color: #ff9f59;
   color: #000;
@@ -217,6 +222,7 @@ font-size: 32px;
   background: #aaaaaa;
   padding: 5px;
 }
+
 .mini-tab p {
   font-size: 12px;
   line-height: 105%;
@@ -235,28 +241,34 @@ font-size: 32px;
     /* position: static; */
     overflow-x: hidden;
   }
-  .top-info{
+
+  .top-info {
     padding: 23px;
     flex-direction: column;
     z-index: 2;
   }
-  .food-img{
+
+  .food-img {
     z-index: 2;
   }
-  .food-info{
+
+  .food-info {
     margin-top: 30px;
   }
+
   .union-icons {
     right: -165px;
     /* height: 200px; */
     z-index: 1;
   }
-  .lower-section{
-    width: 100%;  
+
+  .lower-section {
+    width: 100%;
     padding: 23px;
     margin: 80px auto;
   }
-  .ingredient-container{
+
+  .ingredient-container {
     padding: 23px;
   }
 }
