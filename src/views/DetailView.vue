@@ -36,9 +36,13 @@
     <div class="ingredient-container">
       <h3>Ingredients</h3>
       <div class="tabs-container">
-        <div class="tabs" v-for="(ingredient, index) in ingredients" :key="ingredient"
-          :onmouseover="changeAppearance()">
-          <p>{{ ingredient }}</p>
+        <div
+          class="tabs"
+          v-for="(ingredient, index) in ingredients"
+          :key="ingredient"
+          :onmouseover="changeAppearance($event)"
+        >
+          <p :class="{'tabs-p': isHover(ingredient)}">{{ ingredient }}</p>
           <div class="mini-tab">
             <p>{{ measures[`strMeasure${index.slice(13)}`] }}</p>
           </div>
@@ -47,7 +51,9 @@
     </div>
     <div class="instructions">
       <h3>Insructions</h3>
-      <p>{{ food.strInstructions }}</p>
+      <ol>
+        <li :style="{marginBottom: '10px'}" v-for="(instruction,index) in instructions" :key="index">{{instruction}}</li>
+        </ol>
     </div>
   </section>
 </template>
@@ -62,12 +68,13 @@ export default {
   },
   data() {
     return {
-      hover: false
-    }
+      hover: null,
+    };
   },
   props: ["id"],
   async created() {
     await this.searchFood(this.id);
+    console.log(this.instructions)
   },
   computed: {
     ...mapGetters({
@@ -100,10 +107,26 @@ export default {
       });
       return filteredMeasures;
     },
+    isHover(){
+      return (ingredient) =>{
+       return  this.hover === ingredient? true: false
+      }
+    },
+    instructions(){
+     const arrayOfInstructions =  this.food.strInstructions?.trim().split("\r\n")
+     return arrayOfInstructions.filter(element => element !== "")
+     
+    }
   },
   methods: {
     ...mapActions(["searchFood"]),
+    changeAppearance(event){
+      const text = event?.target.innerText;
+      this.hover =  text
+
+    }
   },
+
 };
 </script>
 
@@ -211,6 +234,9 @@ h3 {
   color: #000;
 }
 
+.tabs-p{
+  color: #000;
+}
 
 
 .mini-tab {
