@@ -20,7 +20,7 @@
             </figure>
             <p>{{ food.strArea }}</p>
           </div>
-          <div>
+          <div class="tags">
             <figure>
               <img src="@/assets/tags-icon.svg" alt="" />
               <span>TAGS</span>
@@ -184,6 +184,9 @@ h3 {
     inset 1px 1px 2px rgba(255, 255, 255, 0.37);
   backdrop-filter: blur(94px);
   z-index: 2;
+}
+.tags{
+  height: 68px;
 }
 
 .card-container span {
